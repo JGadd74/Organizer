@@ -22,6 +22,8 @@ namespace OrganizeFolder
             // goal: organize loose files into folders based on filetype
             // ex. organize downloads folder into images, docs and videos folders
 
+            // Suggestion: Let user define categories by name and extensions
+
 
 
             //Set to organize whatever folder the exe is in.  also make it ignore this exe
@@ -30,14 +32,14 @@ namespace OrganizeFolder
 
 
             string activeUser = Environment.UserName;
-            string Downloads = @"C:\Users\" + activeUser + @"\Downloads";
-            string Videos = Path.Combine(Downloads, "Videos");
-            string Images = Path.Combine(Downloads, "Images");
-            string Executables = Path.Combine(Downloads, "Executables");
-            string ISOs = Path.Combine(Downloads, "ISOs");
-            string Compressed = Path.Combine(Downloads, "Compressed Files");
-            string PDFs = Path.Combine(Downloads, "PDFs");
-            string Other = Path.Combine(Downloads, "Other");
+            string Main = @"C:\Users\" + activeUser + @"\Downloads";
+            string Videos = Path.Combine(Main, "Videos");
+            string Images = Path.Combine(Main, "Images");
+            string Executables = Path.Combine(Main, "Executables");
+            string ISOs = Path.Combine(Main, "ISOs");
+            string Compressed = Path.Combine(Main, "Compressed Files");
+            string PDFs = Path.Combine(Main, "PDFs");
+            string Other = Path.Combine(Main, "Other");
 
             string[] Depositories = new string[] { Videos, Images, Executables, ISOs, Compressed, PDFs, Other };
                        
