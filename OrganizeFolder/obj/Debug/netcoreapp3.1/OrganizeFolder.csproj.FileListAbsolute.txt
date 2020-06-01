@@ -1,0 +1,13 @@
+C:\Users\Jon-k\source\repos\OrganizeFolder\OrganizeFolder\bin\Debug\netcoreapp3.1\OrganizeFolder.exe
+C:\Users\Jon-k\source\repos\OrganizeFolder\OrganizeFolder\bin\Debug\netcoreapp3.1\OrganizeFolder.deps.json
+C:\Users\Jon-k\source\repos\OrganizeFolder\OrganizeFolder\bin\Debug\netcoreapp3.1\OrganizeFolder.runtimeconfig.json
+C:\Users\Jon-k\source\repos\OrganizeFolder\OrganizeFolder\bin\Debug\netcoreapp3.1\OrganizeFolder.runtimeconfig.dev.json
+C:\Users\Jon-k\source\repos\OrganizeFolder\OrganizeFolder\bin\Debug\netcoreapp3.1\OrganizeFolder.dll
+C:\Users\Jon-k\source\repos\OrganizeFolder\OrganizeFolder\bin\Debug\netcoreapp3.1\OrganizeFolder.pdb
+C:\Users\Jon-k\source\repos\OrganizeFolder\OrganizeFolder\obj\Debug\netcoreapp3.1\OrganizeFolder.csprojAssemblyReference.cache
+C:\Users\Jon-k\source\repos\OrganizeFolder\OrganizeFolder\obj\Debug\netcoreapp3.1\OrganizeFolder.AssemblyInfoInputs.cache
+C:\Users\Jon-k\source\repos\OrganizeFolder\OrganizeFolder\obj\Debug\netcoreapp3.1\OrganizeFolder.AssemblyInfo.cs
+C:\Users\Jon-k\source\repos\OrganizeFolder\OrganizeFolder\obj\Debug\netcoreapp3.1\OrganizeFolder.csproj.CoreCompileInputs.cache
+C:\Users\Jon-k\source\repos\OrganizeFolder\OrganizeFolder\obj\Debug\netcoreapp3.1\OrganizeFolder.dll
+C:\Users\Jon-k\source\repos\OrganizeFolder\OrganizeFolder\obj\Debug\netcoreapp3.1\OrganizeFolder.pdb
+C:\Users\Jon-k\source\repos\OrganizeFolder\OrganizeFolder\obj\Debug\netcoreapp3.1\OrganizeFolder.genruntimeconfig.cache
