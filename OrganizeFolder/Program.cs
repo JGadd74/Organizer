@@ -30,7 +30,7 @@ namespace OrganizeFolder
 
 
             string activeUser = Environment.UserName;
-            string Downloads = @"C:\" + activeUser + @"\Jon-k\Downloads";
+            string Downloads = @"C:\Users\" + activeUser + @"\Downloads";
             string Videos = Path.Combine(Downloads, "Videos");
             string Images = Path.Combine(Downloads, "Images");
             string Executables = Path.Combine(Downloads, "Executables");
@@ -40,31 +40,21 @@ namespace OrganizeFolder
             string Other = Path.Combine(Downloads, "Other");
 
             string[] Depositories = new string[] { Videos, Images, Executables, ISOs, Compressed, PDFs, Other };
-
-
-            foreach(string Destination in Depositories) // change this so it only creates directories for existing file types, no need for empty folders.
-            {
-                if (!Directory.Exists(Destination))
-                {
-                    Directory.CreateDirectory(Destination);
-                }
-            }
-
-
-
+                       
             var Files = Directory.EnumerateFiles(Downloads);
 
 
 
             foreach (string file in Files)
             {
-                if (Path.GetExtension(file) == ".exe") Directory.CreateDirectory(Executables);
-                else if (Path.GetExtension(file) == ".mp4" || Path.GetExtension(file) == ".avi" || Path.GetExtension(file) == ".mkv") Directory.CreateDirectory(Videos);
+                //if (!File.Exists(Path.Combine(Downloads, "Test.txt"))) File.Create(Path.Combine(Downloads, "Test.txt"));
+                if (Path.GetExtension(file) == ".exe" && !Directory.Exists(Executables)) Directory.CreateDirectory(Executables);
+                else if (Path.GetExtension(file) == ".mp4" || Path.GetExtension(file) == ".avi" || Path.GetExtension(file) == ".mkv" && !Directory.Exists(Videos)) Directory.CreateDirectory(Videos);
                 else if (Path.GetExtension(file) == ".jpg") Directory.CreateDirectory(Images);
                 else if (Path.GetExtension(file) == ".iso") Directory.CreateDirectory(ISOs);
-                else if (Path.GetExtension(file) == ".7z" || Path.GetExtension(file) == ".rar" || Path.GetExtension(file) == ".zip") Directory.CreateDirectory(Compressed);
-                else if (Path.GetExtension(file) == ".pdf") Directory.CreateDirectory(PDFs);
-                else Directory.CreateDirectory(Other);
+                else if (Path.GetExtension(file) == ".7z" || Path.GetExtension(file) == ".rar" || Path.GetExtension(file) == ".zip" && !Directory.Exists(Compressed)) Directory.CreateDirectory(Compressed);
+                else if (Path.GetExtension(file) == ".pdf" && !Directory.Exists(PDFs)) Directory.CreateDirectory(PDFs);
+                else if (!Directory.Exists(Other)) Directory.CreateDirectory(Other);
 
             }
 
