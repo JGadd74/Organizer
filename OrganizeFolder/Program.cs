@@ -47,7 +47,11 @@ namespace OrganizeFolder
 
 
 
+<<<<<<< HEAD
             foreach (string file in Files) // optimize, combine two if/else blocks
+=======
+            foreach (string file in Files)
+>>>>>>> 14136c661cfd371dbc8165bd34a3c26d73de5609
             {
                 //if (!File.Exists(Path.Combine(Downloads, "Test.txt"))) File.Create(Path.Combine(Downloads, "Test.txt"));
                 if (Path.GetExtension(file) == ".exe" && !Directory.Exists(Executables)) Directory.CreateDirectory(Executables);
