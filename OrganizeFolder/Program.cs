@@ -14,6 +14,7 @@ namespace OrganizeFolder
             Executables,
             ISOs,
             Compressed,
+            PDFs,
             Other
         }
         static void Main(string[] args)
@@ -35,12 +36,13 @@ namespace OrganizeFolder
             string Executables = Path.Combine(Downloads, "Executables");
             string ISOs = Path.Combine(Downloads, "ISOs");
             string Compressed = Path.Combine(Downloads, "Compressed Files");
+            string PDFs = Path.Combine(Downloads, "PDFs");
             string Other = Path.Combine(Downloads, "Other");
 
-            string[] Depositories = new string[] { Videos, Images, Executables, ISOs, Compressed, Other };
+            string[] Depositories = new string[] { Videos, Images, Executables, ISOs, Compressed, PDFs, Other };
 
 
-            foreach(string Destination in Depositories)
+            foreach(string Destination in Depositories) // change this so it only creates directories for existing file types, no need for empty folders.
             {
                 if (!Directory.Exists(Destination))
                 {
@@ -48,9 +50,27 @@ namespace OrganizeFolder
                 }
             }
 
+
+
             var Files = Directory.EnumerateFiles(Downloads);
 
-            foreach(string file in Files)
+
+
+            foreach (string file in Files)
+            {
+                if (Path.GetExtension(file) == ".exe") Directory.CreateDirectory(Executables);
+                else if (Path.GetExtension(file) == ".mp4" || Path.GetExtension(file) == ".avi" || Path.GetExtension(file) == ".mkv") Directory.CreateDirectory(Videos);
+                else if (Path.GetExtension(file) == ".jpg") Directory.CreateDirectory(Images);
+                else if (Path.GetExtension(file) == ".iso") Directory.CreateDirectory(ISOs);
+                else if (Path.GetExtension(file) == ".7z" || Path.GetExtension(file) == ".rar" || Path.GetExtension(file) == ".zip") Directory.CreateDirectory(Compressed);
+                else if (Path.GetExtension(file) == ".pdf") Directory.CreateDirectory(PDFs);
+                else Directory.CreateDirectory(Other);
+
+            }
+
+
+
+            foreach (string file in Files)
             {
                 string fileName = Path.GetFileName(file);
                 if(Path.GetExtension(file) == ".avi" || Path.GetExtension(file) == ".mp4" || Path.GetExtension(file) == ".mkv")
