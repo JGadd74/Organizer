@@ -25,7 +25,7 @@ namespace OrganizeFolder
 
             //Set to organize whatever folder the exe is in.  also make it ignore this exe
 
-            string uselessshit;
+            
 
 
             string activeUser = Environment.UserName;
