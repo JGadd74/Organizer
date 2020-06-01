@@ -43,7 +43,7 @@ namespace OrganizeFolder
 
             string[] Depositories = new string[] { Videos, Images, Executables, ISOs, Compressed, PDFs, Other };
                        
-            var Files = Directory.EnumerateFiles(Downloads);
+            var Files = Directory.EnumerateFiles(Main);
 
 
 
@@ -58,12 +58,7 @@ namespace OrganizeFolder
                 else if (Path.GetExtension(file) == ".pdf" && !Directory.Exists(PDFs)) Directory.CreateDirectory(PDFs);
                 else if (!Directory.Exists(Other)) Directory.CreateDirectory(Other);
 
-            }
-
-
-
-            foreach (string file in Files)
-            {
+            
                 string fileName = Path.GetFileName(file);
                 if(Path.GetExtension(file) == ".avi" || Path.GetExtension(file) == ".mp4" || Path.GetExtension(file) == ".mkv")
                 {
