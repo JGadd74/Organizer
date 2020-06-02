@@ -20,13 +20,13 @@ namespace OrganizeFolder
         static void Main(string[] args)
         {
             // goal: organize loose files into folders based on filetype
-            // ex. organize downloads folder into images, docs and videos folders
+            // ex. organize downloads folder into images, docs and videos folders etc
 
             // Suggestion: Let user define categories by name and extensions
 
 
 
-            //Set to organize whatever folder the exe is in.  also make it ignore this exe
+            
 
             
 
