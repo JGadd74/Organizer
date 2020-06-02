@@ -47,12 +47,9 @@ namespace OrganizeFolder
 
 
 
-<<<<<<< HEAD
             foreach (string file in Files) // optimize, combine two if/else blocks
-=======
-            foreach (string file in Files)
->>>>>>> 14136c661cfd371dbc8165bd34a3c26d73de5609
             {
+                /*
                 //if (!File.Exists(Path.Combine(Downloads, "Test.txt"))) File.Create(Path.Combine(Downloads, "Test.txt"));
                 if (Path.GetExtension(file) == ".exe" && !Directory.Exists(Executables)) Directory.CreateDirectory(Executables);
                 else if (Path.GetExtension(file) == ".mp4" || Path.GetExtension(file) == ".avi" || Path.GetExtension(file) == ".mkv" && !Directory.Exists(Videos)) Directory.CreateDirectory(Videos);
@@ -61,37 +58,44 @@ namespace OrganizeFolder
                 else if (Path.GetExtension(file) == ".7z" || Path.GetExtension(file) == ".rar" || Path.GetExtension(file) == ".zip" && !Directory.Exists(Compressed)) Directory.CreateDirectory(Compressed);
                 else if (Path.GetExtension(file) == ".pdf" && !Directory.Exists(PDFs)) Directory.CreateDirectory(PDFs);
                 else if (!Directory.Exists(Other)) Directory.CreateDirectory(Other);
-
+                */
             
                 string fileName = Path.GetFileName(file);
 
 
                 if(Path.GetExtension(file) == ".avi" || Path.GetExtension(file) == ".mp4" || Path.GetExtension(file) == ".mkv")
                 {
+                    if (!Directory.Exists(Videos)) Directory.CreateDirectory(Videos);
                     File.Move(file, Path.Combine(Videos, fileName));
                 }
                 else if(Path.GetExtension(file) == ".jpg")
                 {
+                    if (!Directory.Exists(Images)) Directory.CreateDirectory(Images);
                     File.Move(file, Path.Combine(Images, fileName));
                 }
                 else if (Path.GetExtension(file) == ".exe")
                 {
+                    if(!Directory.Exists(Executables)) Directory.CreateDirectory(Executables);
                     File.Move(file, Path.Combine(Executables, fileName));
                 }
                 else if (Path.GetExtension(file) == ".iso")
                 {
+                    if (!Directory.Exists(ISOs)) Directory.CreateDirectory(ISOs);
                     File.Move(file, Path.Combine(ISOs, fileName));
                 }
                 else if (Path.GetExtension(file) == ".zip" || Path.GetExtension(file) == ".rar" || Path.GetExtension(file) == ".7z")
                 {
+                    if (!Directory.Exists(Compressed)) Directory.CreateDirectory(Compressed);
                     File.Move(file, Path.Combine(Compressed, fileName));
                 }
                 else if(Path.GetExtension(file) == ".pdf")
                 {
+                    if (!Directory.Exists(PDFs)) Directory.CreateDirectory(PDFs);
                     File.Move(file, Path.Combine(PDFs, fileName));
                 }
                 else
                 {
+                    if (!Directory.Exists(Other)) Directory.CreateDirectory(Other);
                     File.Move(file, Path.Combine(Other, fileName));
                 }
 
