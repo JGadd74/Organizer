@@ -40,9 +40,10 @@ namespace OrganizeFolder
             string ISOs = Path.Combine(Main, "ISOs");
             string Compressed = Path.Combine(Main, "Compressed Files");
             string PDFs = Path.Combine(Main, "PDFs");
+            string Shortcuts = Path.Combine(Main, "Shortcuts");
             string Other = Path.Combine(Main, "Other");
 
-            string[] Depositories = new string[] { Videos, Images, Executables, ISOs, Compressed, PDFs, Other };
+            string[] Depositories = new string[] { Videos, Images, Executables, ISOs, Compressed, PDFs, Shortcuts, Other };
                        
             var Files = Directory.EnumerateFiles(Main);
 
@@ -82,6 +83,11 @@ namespace OrganizeFolder
                 {
                     if (!Directory.Exists(PDFs)) Directory.CreateDirectory(PDFs);
                     File.Move(file, Path.Combine(PDFs, fileName));
+                }
+                else if (Path.GetExtension(file) == ".lnk")
+                {
+                    if (!Directory.Exists(Shortcuts)) Directory.CreateDirectory(Shortcuts);
+                    File.Move(file, Path.Combine(Shortcuts, fileName));
                 }
                 else
                 {
