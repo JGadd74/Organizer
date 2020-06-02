@@ -3,6 +3,14 @@ using System.Collections.Generic;
 
 namespace MenuFramework
 {
+
+    public enum MenuType
+    {
+        TextBody,
+        NmbrChoices,
+        TextInput,
+        ScrollInput
+    }
     public class Menu
     {
         //.....................................................................................................................
@@ -81,9 +89,10 @@ namespace MenuFramework
         private List<choiceDelegate> userMethods = new List<choiceDelegate>();
         private List<bool> hasRunList = new List<bool>();
 
-        public Menu(int type) // 0 for bodyText display, 1 for numbered options , 2 for string input, 3 for scroll input
+        public Menu(MenuType type, string Header) // 0 for bodyText display, 1 for numbered options , 2 for string input, 3 for scroll input
         {
-            this.type = type;
+            this.type = (int)type;
+            headerPrompt = Header;
         }
 
         private string headerPrompt;
