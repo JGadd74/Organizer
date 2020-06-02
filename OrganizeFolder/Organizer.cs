@@ -16,14 +16,13 @@ namespace OrganizeFolder
 
 
         public Menu MainMenu = new Menu(MenuType.ScrollInput, "PSI. Organizer");
+        public Menu SettingsMenu = new Menu(MenuType.ScrollInput, "Settings");
 
+        public Menu HelpMenu = new Menu(MenuType.ScrollInput, "Help");
+        public Menu TutorialMenu = new Menu(MenuType.TextBody, "Tutorial");
+        public Menu AboutFileExtensionsMenu = new Menu(MenuType.TextBody, "About File Extensions");
+        public Menu AboutOrganizerMenu = new Menu(MenuType.TextBody, "About PSI. File Organizer");
 
-
-        public Organizer()
-        {
-            MainMenu.addMethod(OrganizeByDefaults, "Organize Downloads");
-            MainMenu.addMethod(MainMenu.exitMenuLoop, "Exit");
-        }
 
 
         private static string activeUser = Environment.UserName;
@@ -42,11 +41,34 @@ namespace OrganizeFolder
 
         private static IEnumerable<string> Files = Directory.EnumerateFiles(Main);
 
-        
+
+        public Organizer()
+        {
+            MainMenu.addMethod(OrganizeByDefaults, "Organize Downloads");
+            MainMenu.addMethod(SettingsMenu.runMenu, "Settings");
+            MainMenu.addMethod(EXITORGANIZER, "Exit");
+
+            SettingsMenu.addMethod(MainMenu.runMenu, "Return");
+            SettingsMenu.addMethod(HelpMenu.runMenu, "Help");
+
+            HelpMenu.addMethod(SettingsMenu.runMenu, "Return");
+            HelpMenu.addMethod(TutorialMenu.runMenu, "Tutorial");
+            HelpMenu.addMethod(AboutFileExtensionsMenu.runMenu, "File Exensions");
+            HelpMenu.addMethod(AboutOrganizerMenu.runMenu, "About PSI. Organizer");
+        }
+        private bool EXITORGANIZER()
+        {
+            MainMenu.exitMenuLoop();
+            SettingsMenu.exitMenuLoop();
+            HelpMenu.exitMenuLoop();
+            TutorialMenu.exitMenuLoop();
+            AboutFileExtensionsMenu.exitMenuLoop();
+            AboutOrganizerMenu.exitMenuLoop();
+            return true;
+        }
 
 
-
-
+      
         static bool OrganizeByDefaults()
         {
             foreach (string file in Files) // optimize, combine two if/else blocks
@@ -92,11 +114,9 @@ namespace OrganizeFolder
                     if (!Directory.Exists(Other)) Directory.CreateDirectory(Other);
                     File.Move(file, Path.Combine(Other, fileName));
                 }
-
             }
             return true;
         }
-
-           
+                   
     }
 }
