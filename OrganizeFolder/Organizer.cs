@@ -22,7 +22,7 @@ namespace OrganizeFolder
         public Menu SettingsMenu = new Menu(MenuType.ScrollInput, "Settings");
         public Menu HelpMenu = new Menu(MenuType.ScrollInput, "Help");
         public Menu TutorialMenu = new Menu(MenuType.TextBody, "Tutorial");
-        public Menu AboutFileExtensionsMenu = new Menu(MenuType.TextBody, "About File Extensions");
+        public Menu AboutFileExtensionsMenu = new Menu(MenuType.ScrollInput, "About File Extensions");
         public Menu AboutOrganizerMenu = new Menu(MenuType.TextBody, "About PSI. Folder Organizer");
 
         private static string activeUser = Environment.UserName;
@@ -47,6 +47,8 @@ namespace OrganizeFolder
         {
             
             populateDirectories();
+            populateAboutFileExtensionsMenu();
+
             MainMenu.addMethod(organizeByDefaultsExtended, "Organize Downloads");
             MainMenu.addMethod(SettingsMenu.runMenu, "Settings");
             MainMenu.addMethod(MainMenu.exitMenuLoop, "Exit");
@@ -69,6 +71,42 @@ namespace OrganizeFolder
             Directories.Add(Other);
         }
 
+        //List<Menu> AboutFileExtensionMenus = new List<Menu>();
+
+        public void populateAboutFileExtensionsMenu()
+        {
+            AboutFileExtensionsMenu.addMethod(AboutFileExtensionsMenu.exitMenuLoop, "Return");
+            foreach(string[] category in Ekit.ExtensionCategories)
+            {
+                string ExtensionsColumn = "";
+                bool isFirstTime = true;
+                foreach(string extension in category)
+                {
+                    if (!isFirstTime)
+                    {
+                        ExtensionsColumn += extension;
+                        ExtensionsColumn += '\n';
+                    }
+                    isFirstTime = false;
+                }
+                Menu tMenu = new Menu(MenuType.TextBody, category[0]);
+                tMenu.SetBodyText(ExtensionsColumn);
+                AboutFileExtensionsMenu.addMethod(tMenu.runMenu, category[0]);
+
+            }
+            
+        }
+        public bool test()
+        {
+            return true;
+        }
+        /// <summary>
+        /// for loop for iterater
+        /// create textonly menu
+        /// add text[i] to body
+        /// add method to aboutfileextensions menu 
+        /// </summary>
+        /// <returns></returns>
         public bool organizeByDefaultsExtended()
         {
             foreach (string[] category in Ekit.ExtensionCategories)
@@ -91,6 +129,8 @@ namespace OrganizeFolder
             }
            return true;
         }
+
+       
 
         public bool OrganizeByDefaults()
         {

@@ -57,7 +57,7 @@ namespace FileExtensions
 
         public static string[] image = new string[] { "Image Files", ".ai", ".bmp" , ".gif" , ".ico" , ".jpeg" , ".jpg" , ".png", ".ps" , ".psd" , ".svg" , ".tif" , ".tiff"};
 
-        public static string[] internet = new string[] { "Internet Files", ".asp", ".aspx" , ".cer" , ".cfm" , ".cgi" , ".pl" , ".css" , ".htm" , ".html" , ".js" , ".jsp" , ".part" , ".php" , ".py" , ".rss" , ".xhtml"};
+        public static string[] internet = new string[] { "Internet Files", ".asp", ".aspx" , ".cer" , ".cfm" , ".cgi" , ".pl" , ".css" , ".htm" , ".html" , ".js" , ".jsp" , ".part" , ".php" , ".py" , ".rss" , ".xhtml" , ".torrent"};
 
         public static string[] presentation = new string[] { "Presentation Files", ".key", ".odp" , ".pps" , ".ppt" , ".pptx" };
 
@@ -70,12 +70,6 @@ namespace FileExtensions
         public static string[] video = new string[] { "Video Files", ".3g2", ".3gp" , ".avi" , ".flv" , ".h264" , ".m4v" , ".mkv" , ".mov" , ".mp4" , ".mpg" , ".mpeg" , ".rm" , ".swf" , ".vob" , ".wmv"};
 
         public static string[] wordProcessor = new string[] { "Word Processor Files", ".doc", ".docx" , ".odt" , ".pdf" , ".rtf" , ".tex" , ".txt" , ".wpd"};          
-        
-        
-        
-    
-    
-    
     
     }
 }
