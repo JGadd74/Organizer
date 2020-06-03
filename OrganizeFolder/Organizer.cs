@@ -15,13 +15,23 @@ namespace OrganizeFolder
         // Suggestion: Let user define categories by name and extensions
 
 
-        public Menu MainMenu = new Menu(MenuType.ScrollInput, "PSI. Organizer");
+        // update to use Extensions.cs
+        /// <summary>
+        ///  Needed
+        ///     Create directories as needed
+        ///     organize into directories on filetype
+        ///     
+        ///     new Depositories var that is populated by Extensions.ExtensionCatagories
+        /// </summary>
+
+
+        public Menu MainMenu = new Menu(MenuType.ScrollInput, "PSI. Folder Organizer");
         public Menu SettingsMenu = new Menu(MenuType.ScrollInput, "Settings");
 
         public Menu HelpMenu = new Menu(MenuType.ScrollInput, "Help");
         public Menu TutorialMenu = new Menu(MenuType.TextBody, "Tutorial");
         public Menu AboutFileExtensionsMenu = new Menu(MenuType.TextBody, "About File Extensions");
-        public Menu AboutOrganizerMenu = new Menu(MenuType.TextBody, "About PSI. File Organizer");
+        public Menu AboutOrganizerMenu = new Menu(MenuType.TextBody, "About PSI. Folder Organizer");
 
 
 
@@ -46,32 +56,22 @@ namespace OrganizeFolder
         {
             MainMenu.addMethod(OrganizeByDefaults, "Organize Downloads");
             MainMenu.addMethod(SettingsMenu.runMenu, "Settings");
-            MainMenu.addMethod(EXITORGANIZER, "Exit");
+            MainMenu.addMethod(MainMenu.exitMenuLoop, "Exit");
 
-            SettingsMenu.addMethod(MainMenu.runMenu, "Return");
+            SettingsMenu.addMethod(SettingsMenu.exitMenuLoop, "Return");
             SettingsMenu.addMethod(HelpMenu.runMenu, "Help");
 
-            HelpMenu.addMethod(SettingsMenu.runMenu, "Return");
+            HelpMenu.addMethod(HelpMenu.exitMenuLoop, "Return");
             HelpMenu.addMethod(TutorialMenu.runMenu, "Tutorial");
             HelpMenu.addMethod(AboutFileExtensionsMenu.runMenu, "File Exensions");
             HelpMenu.addMethod(AboutOrganizerMenu.runMenu, "About PSI. Organizer");
         }
-        private bool EXITORGANIZER()
-        {
-            MainMenu.exitMenuLoop();
-            SettingsMenu.exitMenuLoop();
-            HelpMenu.exitMenuLoop();
-            TutorialMenu.exitMenuLoop();
-            AboutFileExtensionsMenu.exitMenuLoop();
-            AboutOrganizerMenu.exitMenuLoop();
-            return true;
-        }
-
+        
 
       
         static bool OrganizeByDefaults()
         {
-            foreach (string file in Files) // optimize, combine two if/else blocks
+            foreach (string file in Files) 
             {
                 string fileName = Path.GetFileName(file);
                 if (Path.GetExtension(file) == ".avi" || Path.GetExtension(file) == ".mp4" || Path.GetExtension(file) == ".mkv")

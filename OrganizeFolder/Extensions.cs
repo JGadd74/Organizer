@@ -1,8 +1,28 @@
-﻿namespace OrganizeFolder
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Threading;
+
+namespace OrganizeFolder
 {
     public static class Extensions
     {
-
+        public static List<string[]> ExtensionCategories = new List<string[]> 
+        { 
+            audio , 
+            compresssed , 
+            diskMedia , 
+            database , 
+            email , 
+            executable , 
+            Font , 
+            image , 
+            internet , 
+            presentation , 
+            programming , 
+            spreadsheet , 
+            system ,
+            video , 
+            wordProcessor};
 
         public static string[] audio = new string[] {"Audio" , ".aif", ".cda" , ".mid" , ".midi" , ".mp3" , ".mpa" , ".ogg" , ".wav" , ".wma" , ".wpl"};
 
