@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
 
 namespace MenuFramework
 {
@@ -101,6 +102,7 @@ namespace MenuFramework
         private char selectedSymbol = ':';
         private char boundrySymbol = '|';
 
+        public int GetCurrentScrollSelection() { return currentScrollSelection; }
         public void SetHeaderPrompt(string input)
         {
             if (input.Length < 100) // arbitary number, need to adjust after testing
@@ -280,6 +282,7 @@ namespace MenuFramework
                         }
                         choiceDelegate Choice = userMethods[input];
                         Console.Clear();
+                        currentScrollSelection = input; // for external retrieval
                         hasRunList[input] = Choice();
                         break;
                     case 2:
