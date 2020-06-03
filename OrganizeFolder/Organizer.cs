@@ -16,25 +16,14 @@ namespace OrganizeFolder
         // Suggestion: Let user define categories by name and extensions
 
 
-        // update to use Extensions.cs
-        /// <summary>
-        ///  Needed
-        ///     Create directories as needed
-        ///     organize into directories on filetype
-        ///     
-        ///     new Depositories var that is populated by Extensions.ExtensionCatagories
-        /// </summary>
 
 
         public Menu MainMenu = new Menu(MenuType.ScrollInput, "PSI. Folder Organizer");
         public Menu SettingsMenu = new Menu(MenuType.ScrollInput, "Settings");
-
         public Menu HelpMenu = new Menu(MenuType.ScrollInput, "Help");
         public Menu TutorialMenu = new Menu(MenuType.TextBody, "Tutorial");
         public Menu AboutFileExtensionsMenu = new Menu(MenuType.TextBody, "About File Extensions");
         public Menu AboutOrganizerMenu = new Menu(MenuType.TextBody, "About PSI. Folder Organizer");
-
-
 
         private static string activeUser = Environment.UserName;
 
@@ -48,16 +37,17 @@ namespace OrganizeFolder
         private static string Shortcuts = Path.Combine(Main, "Shortcuts");
         private static string Other = Path.Combine(Main, "Other");
 
-        string[] Depositories = new string[] { Videos, Images, Executables, ISOs, Compressed, PDFs, Shortcuts, Other };
-
+        public List<string> Directories = new List<string>();
+        ExtensionsKit Ekit = new ExtensionsKit();
         private static IEnumerable<string> Files = Directory.EnumerateFiles(Main);
+
 
 
         public Organizer()
         {
             
             populateDirectories();
-            MainMenu.addMethod(OrganizeByDefaults, "Organize Downloads");
+            MainMenu.addMethod(organizeByDefaultsExtended, "Organize Downloads");
             MainMenu.addMethod(SettingsMenu.runMenu, "Settings");
             MainMenu.addMethod(MainMenu.exitMenuLoop, "Exit");
             SettingsMenu.addMethod(SettingsMenu.exitMenuLoop, "Return");
@@ -69,20 +59,40 @@ namespace OrganizeFolder
         }
 
 
-        public List<string> Directories = new List<string>();
-
-        Extensions myTest = new Extensions();
+       
         public void populateDirectories()
         {
-            foreach (string name in myTest.getCategoryNames())
+            foreach (string name in Ekit.getCategoryNames())
             {
                 Directories.Add(Path.Combine(Main, name));
             }
+            Directories.Add(Other);
         }
 
+        public bool organizeByDefaultsExtended()
+        {
+            foreach (string[] category in Ekit.ExtensionCategories)
+            {
+                foreach(string extension in category)
+                {
+                    foreach(string file in Files)
+                    {
+                        if(Path.GetExtension(file) == extension)
+                        {
+                            if(!Directory.Exists(Path.Combine(Main, category[0])))
+                            {
+                                Directory.CreateDirectory(Path.Combine(Main, category[0]));
+                            }
+                            string fileName = Path.GetFileName(file);
+                            File.Move(file, Path.Combine(Main, category[0], fileName) , true);
+                        }
+                    }
+                }
+            }
+           return true;
+        }
 
-
-            static bool OrganizeByDefaults()
+        public bool OrganizeByDefaults()
         {
             foreach (string file in Files) 
             {
