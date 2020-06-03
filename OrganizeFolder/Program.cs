@@ -12,7 +12,11 @@ namespace OrganizeFolder
         static void Main(string[] args)
         {
             Organizer MyOrganizer = new Organizer();
-            MyOrganizer.MainMenu.runMenu();
+           // MyOrganizer.MainMenu.runMenu();
+           foreach(string directory in MyOrganizer.Directories)
+            {
+                Console.WriteLine(directory);
+            }
            
         }
     }

@@ -4,6 +4,7 @@ using System.IO;
 using System.IO.Enumeration;
 using System.Runtime.InteropServices;
 using MenuFramework;
+using FileExtensions;
 
 namespace OrganizeFolder
 {
@@ -54,22 +55,34 @@ namespace OrganizeFolder
 
         public Organizer()
         {
+            
+            populateDirectories();
             MainMenu.addMethod(OrganizeByDefaults, "Organize Downloads");
             MainMenu.addMethod(SettingsMenu.runMenu, "Settings");
             MainMenu.addMethod(MainMenu.exitMenuLoop, "Exit");
-
             SettingsMenu.addMethod(SettingsMenu.exitMenuLoop, "Return");
             SettingsMenu.addMethod(HelpMenu.runMenu, "Help");
-
             HelpMenu.addMethod(HelpMenu.exitMenuLoop, "Return");
             HelpMenu.addMethod(TutorialMenu.runMenu, "Tutorial");
             HelpMenu.addMethod(AboutFileExtensionsMenu.runMenu, "File Exensions");
             HelpMenu.addMethod(AboutOrganizerMenu.runMenu, "About PSI. Organizer");
         }
-        
 
-      
-        static bool OrganizeByDefaults()
+
+        public List<string> Directories = new List<string>();
+
+        Extensions myTest = new Extensions();
+        public void populateDirectories()
+        {
+            foreach (string name in myTest.getCategoryNames())
+            {
+                Directories.Add(Path.Combine(Main, name));
+            }
+        }
+
+
+
+            static bool OrganizeByDefaults()
         {
             foreach (string file in Files) 
             {

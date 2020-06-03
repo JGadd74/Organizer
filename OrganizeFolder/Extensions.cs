@@ -1,20 +1,22 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
-namespace OrganizeFolder
+namespace FileExtensions
 {
-    public static class Extensions
+    public class Extensions
     {
-        public static List<string[]> ExtensionCategories = new List<string[]> 
+        public List<string[]> ExtensionCategories = new List<string[]>() 
         { 
             audio , 
-            compresssed , 
+            compressed , 
             diskMedia , 
             database , 
             email , 
             executable , 
-            Font , 
+            font , 
             image , 
             internet , 
             presentation , 
@@ -22,11 +24,14 @@ namespace OrganizeFolder
             spreadsheet , 
             system ,
             video , 
-            wordProcessor};
+            wordProcessor
+        };
+
+       
 
         public static string[] audio = new string[] {"Audio" , ".aif", ".cda" , ".mid" , ".midi" , ".mp3" , ".mpa" , ".ogg" , ".wav" , ".wma" , ".wpl"};
 
-        public static string[] compresssed = new string[] {"Compressed" , ".7z" , ".arj" , ".deb" , ".pkg" , ".rar" , ".rpm" , ".tar.gz" , ".z" , ".zip"};
+        public static string[] compressed = new string[] {"Compressed" , ".7z" , ".arj" , ".deb" , ".pkg" , ".rar" , ".rpm" , ".tar.gz" , ".z" , ".zip"};
 
         public static string[] diskMedia = new string[] {"Disk/Media" , ".bin" , ".dmg" , ".iso" , ".toast" , ".vcd"};
 
@@ -36,7 +41,7 @@ namespace OrganizeFolder
 
         public static string[] executable = new string[] { "Executable", ".apk", ".bat" , ".bin" , ".cgi" , ".pl" , ".com" , ".exe" , ".gadget" , ".jar" , ".msi" , ".py" , ".wsf"};
 
-        public static string[] Font = new string[] { "Font", ".fnt", ".fon" , ".otf" , ".ttf"};
+        public static string[] font = new string[] { "Font", ".fnt", ".fon" , ".otf" , ".ttf"};
 
         public static string[] image = new string[] { "Image", ".ai", ".bmp" , ".gif" , ".ico" , ".jpeg" , ".jpg" , ".png", ".ps" , ".psd" , ".svg" , ".tif" , ".tiff"};
 
@@ -52,6 +57,22 @@ namespace OrganizeFolder
 
         public static string[] video = new string[] { "Video", ".3g2", ".3gp" , ".avi" , ".flv" , ".h264" , ".m4v" , ".mkv" , ".mov" , ".mp4" , ".mpg" , ".mpeg" , ".rm" , ".swf" , ".vob" , ".wmv"};
 
-        public static string[] wordProcessor = new string[] { "Word Processor", ".doc", ".docx" , ".odt" , ".pdf" , ".rtf" , ".tex" , ".txt" , ".wpd"};
+        public static string[] wordProcessor = new string[] { "Word Processor", ".doc", ".docx" , ".odt" , ".pdf" , ".rtf" , ".tex" , ".txt" , ".wpd"};          
+        
+        public string[] getCategoryNames()
+        {
+            List<string> nameList = new List<string>();           
+
+           foreach( string[] category in ExtensionCategories)
+            {
+                nameList.Add(category[0]);
+            }
+            nameList.TrimExcess();
+            return nameList.ToArray();
+        }
+    
+    
+    
+    
     }
 }
