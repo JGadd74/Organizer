@@ -27,6 +27,24 @@ namespace FileExtensions
             wordProcessor
         };
 
+        public List<string[]> CustomCategories = new List<string[]>();
+
+        public void addCustomCategory(string[] CustomCategory)
+        {
+            CustomCategories.Add(CustomCategory);
+        }
+        public string[] geCustomtCategoryNames()
+        {
+            List<string> nameList = new List<string>();
+
+            foreach (string[] category in CustomCategories)
+            {
+                nameList.Add(category[0]);
+            }
+            nameList.TrimExcess();
+            return nameList.ToArray();
+        }
+
         public string[] getCategoryNames()
         {
             List<string> nameList = new List<string>();

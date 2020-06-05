@@ -162,7 +162,7 @@ namespace MenuFramework
             char newline = '\n';
             Console.WriteLine(border + newline + spacer + headerPrompt + newline + border);
         }
-        private void displayMenu() // 
+        private void displayMenu() //  Perhaps rewrite all this? in a way that links the scales of the header and the body?
         {
             if (type != 3) GenerateNonScrollHeader();
             else GenerateScrollHeader();

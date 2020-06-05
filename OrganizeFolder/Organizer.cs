@@ -59,7 +59,7 @@ namespace OrganizeFolder
         public void populateAboutFileExtensionsMenu()
         {
             AboutFileExtensionsMenu.addMethod(AboutFileExtensionsMenu.exitMenuLoop, "Return");
-            foreach(string[] category in Ekit.ExtensionCategories)
+            foreach(string[] category in Ekit.CustomCategories)
             {
                 string ExtensionsColumn = "";
                 bool isFirstTime = true;
