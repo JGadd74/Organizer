@@ -209,7 +209,9 @@ namespace MenuFramework
                         else //basic format
                         {
                             currentLine += boundrySymbol + spaces + ' ' + choiceLabel[i] + adjustedSpaces + ' ' + boundrySymbol;
+                            
                         }
+                        WidthOfScrollOptions = currentLine.Length; //****************************************************************************
                         currentLine += '\n';
                         displayedMenu += currentLine;
                         currentLine = "";
@@ -219,6 +221,9 @@ namespace MenuFramework
                     break;
             }
         }
+
+        private int WidthOfScrollOptions = 0; // ************************************************************************************************
+
         private string getStringInput()
         {
             string input = Console.ReadLine();
