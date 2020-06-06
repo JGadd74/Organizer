@@ -1,10 +1,11 @@
-﻿using System;
+﻿using OrganizeFolder;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
-namespace FileExtensions
+namespace OrganizeFolder
 {
     public class ExtensionsKit
     {
@@ -27,11 +28,11 @@ namespace FileExtensions
             wordProcessor
         };
 
-        public List<string[]> CustomCategories = new List<string[]>();
+        public static List<string[]> CustomCategories = SaveMaster.GetSavedCategories();
 
         public void addCustomCategory(string[] CustomCategory)
         {
-            CustomCategories.Add(CustomCategory);
+            //CustomCategories.Add(CustomCategory);
         }
         public string[] geCustomtCategoryNames()
         {

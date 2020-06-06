@@ -4,7 +4,7 @@ using System.IO;
 using System.IO.Enumeration;
 using System.Runtime.InteropServices;
 using MenuFramework;
-using FileExtensions;
+
 
 namespace OrganizeFolder
 {
@@ -28,6 +28,8 @@ namespace OrganizeFolder
         public List<string> Directories = new List<string>();
         ExtensionsKit Ekit = new ExtensionsKit();
         private static IEnumerable<string> Files = Directory.EnumerateFiles(Main);
+
+        
 
         public Organizer()
         {

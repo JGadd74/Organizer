@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace OrganizeFolder
@@ -8,35 +9,74 @@ namespace OrganizeFolder
     /// </summary>
     public static class SaveMaster
     {
+
+
         static string SaveFile = @"C:CustomCategories.txt";
+        public static List<string[]> SavedCategories = GetSavedCategories();
         
+        private static void CheckSaveFile()
+        {
+            if (!File.Exists(SaveFile))
+            {
+                File.Create(SaveFile);
+            }
+        }
 
 
         public static List<string[]> GetSavedCategories()
         {
-            List<string[]> FormattedSave = new List<string[]>(); // this will hold the category
-            
-            string[] unformattedFile = File.ReadAllLines(SaveFile); 
+            CheckSaveFile();
 
-            List<string> categoryTemplate = new List<string>(); // one category
+            List<string[]> FormattedSave = new List<string[]>(); // list of categories
+         
+            string[] unformattedFile = File.ReadAllLines(SaveFile);  // Whole file as string[]
 
-            bool isCategoryName = true;
+            List<string> categoryTemplate = new List<string>(); // Temp holder for category
+
+            bool isFirstCategory = true;
             foreach(string line in unformattedFile)
             {
                 if(line[0] == '.')
                 {
-                    
+                    categoryTemplate.Add(line);
                 }
-                else if(line[0] != '.') // isname
+                else
                 {
-
+                    if (!isFirstCategory)
+                    {
+                        isFirstCategory = false;
+                        FormattedSave.Add(categoryTemplate.ToArray()); // add temp to list of categories
+                    }
+                    categoryTemplate.Clear();
+                    categoryTemplate.Add(line);
                 }
             }
-
-            
-            
-            return FormattedSave;
+            return FormattedSave; // return list of custom categories saved in SaveFile
         }
+
+        public static void SaveCustomCategory(string[] Category)
+        {
+                File.AppendAllLines(SaveFile, Category);
+        }
+
+        public static void SortCustomCategories()
+        {
+            //Sort categories into alphabetical order and overwrite
+            SavedCategories.Sort();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
        
     }
 }
