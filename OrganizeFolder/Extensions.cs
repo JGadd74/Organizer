@@ -28,13 +28,15 @@ namespace OrganizeFolder
             wordProcessor
         };
 
-        public static List<string[]> CustomCategories = SaveMaster.GetSavedCategories();
+        public List<string[]> CustomCategories = SaveMaster.GetSavedCategories();
+
+
 
         public void addCustomCategory(string[] CustomCategory)
         {
             //CustomCategories.Add(CustomCategory);
         }
-        public string[] geCustomtCategoryNames()
+        public string[] getCustomtCategoryNames()
         {
             List<string> nameList = new List<string>();
 

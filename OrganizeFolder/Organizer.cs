@@ -18,6 +18,7 @@ namespace OrganizeFolder
         public Menu HelpMenu = new Menu(MenuType.ScrollInput, "Help");
         public Menu TutorialMenu = new Menu(MenuType.TextBody, "Tutorial");
         public Menu AboutFileExtensionsMenu = new Menu(MenuType.ScrollInput, "About File Extensions");
+        public Menu CustomFileExtensionsMenu = new Menu(MenuType.ScrollInput, "Custom Categories");
         public Menu AboutOrganizerMenu = new Menu(MenuType.TextBody, "About PSI. Folder Organizer");
 
         private static string activeUser = Environment.UserName;
@@ -35,6 +36,7 @@ namespace OrganizeFolder
         {
             populateDirectories();
             populateAboutFileExtensionsMenu();
+            populateCustomFileExtensionsMenu();
 
             MainMenu.addMethod(organizeByDefaults, "Organize Downloads");
             MainMenu.addMethod(SettingsMenu.runMenu, "Settings");
@@ -46,6 +48,7 @@ namespace OrganizeFolder
             HelpMenu.addMethod(HelpMenu.exitMenuLoop, "Return");
             HelpMenu.addMethod(TutorialMenu.runMenu, "Tutorial");
             HelpMenu.addMethod(AboutFileExtensionsMenu.runMenu, "File Exensions");
+            HelpMenu.addMethod(CustomFileExtensionsMenu.runMenu, "Custom Categories");
             HelpMenu.addMethod(AboutOrganizerMenu.runMenu, "About PSI. Organizer");
         }
 
@@ -79,7 +82,28 @@ namespace OrganizeFolder
                 AboutFileExtensionsMenu.addMethod(tMenu.runMenu, category[0]);
             }
         }
-        
+        public void populateCustomFileExtensionsMenu()
+        {
+            CustomFileExtensionsMenu.addMethod(CustomFileExtensionsMenu.exitMenuLoop, "Return");
+            foreach (string[] category in Ekit.CustomCategories)
+            {
+                string ExtensionsColumn = "";
+                bool isFirstTime = true;
+                foreach (string extension in category)
+                {
+                    if (!isFirstTime)
+                    {
+                        ExtensionsColumn += extension;
+                        ExtensionsColumn += '\n';
+                    }
+                    isFirstTime = false;
+                }
+                Menu tMenu = new Menu(MenuType.TextBody, category[0]);
+                tMenu.SetBodyText(ExtensionsColumn);
+                CustomFileExtensionsMenu.addMethod(tMenu.runMenu, category[0]);
+            }
+        }
+
         public bool organizeByDefaults()
         {
             foreach (string[] category in Ekit.ExtensionCategories)

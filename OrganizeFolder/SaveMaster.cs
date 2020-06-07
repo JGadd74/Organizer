@@ -12,7 +12,7 @@ namespace OrganizeFolder
 
 
         static string SaveFile = @"C:CustomCategories.txt";
-        public static List<string[]> SavedCategories = GetSavedCategories();
+        
         
         private static void CheckSaveFile()
         {
@@ -23,7 +23,11 @@ namespace OrganizeFolder
         }
 
 
-        public static List<string[]> GetSavedCategories()
+
+
+
+
+        public static List<string[]> GetSavedCategories() // Doesn't return last category?
         {
             CheckSaveFile();
 
@@ -33,26 +37,61 @@ namespace OrganizeFolder
 
             List<string> categoryTemplate = new List<string>(); // Temp holder for category
 
+            string[] test = new string[] { "Category", ".xt", ".pvc" }; // test purposes
+            FormattedSave.Add(test);
+
+            int lineCount = 0;
             bool isFirstCategory = true;
-            foreach(string line in unformattedFile)
+            foreach(string line in unformattedFile) // Check each line in txtfile
             {
-                if(line[0] == '.')
+                if(line[0] == '.') // if its an extension, add it to string[]
                 {
                     categoryTemplate.Add(line);
                 }
-                else
+                else // if it's a category name
                 {
-                    if (!isFirstCategory)
+                    if (!isFirstCategory) 
                     {
-                        isFirstCategory = false;
                         FormattedSave.Add(categoryTemplate.ToArray()); // add temp to list of categories
                     }
                     categoryTemplate.Clear();
                     categoryTemplate.Add(line);
                 }
+                
+
+                lineCount++;
+
+                
+
+                isFirstCategory = false;
             }
+            if (lineCount == unformattedFile.Length)
+            {
+                FormattedSave.Add(categoryTemplate.ToArray());
+            }
+
             return FormattedSave; // return list of custom categories saved in SaveFile
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         public static void SaveCustomCategory(string[] Category)
         {
@@ -62,7 +101,7 @@ namespace OrganizeFolder
         public static void SortCustomCategories()
         {
             //Sort categories into alphabetical order and overwrite
-            SavedCategories.Sort();
+            
         }
 
 
