@@ -97,7 +97,7 @@ namespace MenuFramework
         }
 
         private string headerPrompt;
-        private string[] choiceLabel = new string[20]; // display label for choices 
+        private string[] choiceLabel = new string[200]; // display label for choices 
         private int currentScrollSelection = 0;
         private char selectedSymbol = ':';
         private char boundrySymbol = '|';

@@ -16,6 +16,16 @@ namespace OrganizeFolder
             if (!File.Exists(SaveFile)) File.Create(SaveFile);
         }
 
+        public static void SaveCustomCategories(List<string[]> CustomCategories)
+        {
+           
+           
+            foreach(string[] category in CustomCategories)
+            {
+                File.WriteAllLines(SaveFile, category);
+            }
+        }
+
 
 
 
@@ -26,28 +36,32 @@ namespace OrganizeFolder
             VerifySaveFile();
             List<string[]> FormattedSave = new List<string[]>(); // list of categories
             string[] unformattedFile = File.ReadAllLines(SaveFile);  // Whole file as string[]
-            List<string> categoryTemplate = new List<string>(); // Temp holder for category
-            int lineCount = 0;
-            bool isFirstCategory = true;
-            foreach(string line in unformattedFile) // Check each line in txtfile
+            if (unformattedFile.Length > 0)
             {
-                if(line[0] == '.') // if its an extension, add it to string[]
+                List<string> categoryTemplate = new List<string>(); // Temp holder for category
+                int lineCount = 0;
+                bool isFirstCategory = true;
+                foreach (string line in unformattedFile) // Check each line in txtfile
                 {
-                    categoryTemplate.Add(line);
-                }
-                else // if it's a category name
-                {
-                    if (!isFirstCategory) 
+                    if (line[0] == '.') // if its an extension, add it to string[]
                     {
-                        FormattedSave.Add(categoryTemplate.ToArray()); // add temp to list of categories
+                        categoryTemplate.Add(line);
                     }
-                    categoryTemplate.Clear();
-                    categoryTemplate.Add(line);
+                    else // if it's a category name
+                    {
+                        if (!isFirstCategory)
+                        {
+                            FormattedSave.Add(categoryTemplate.ToArray()); // add temp to list of categories
+                        }
+                        categoryTemplate.Clear();
+                        categoryTemplate.Add(line);
+                    }
+                    lineCount++;
+                    isFirstCategory = false;
                 }
-                lineCount++;
-                isFirstCategory = false;
+                if (lineCount == unformattedFile.Length) FormattedSave.Add(categoryTemplate.ToArray());
             }
-            if (lineCount == unformattedFile.Length) FormattedSave.Add(categoryTemplate.ToArray());
+            
             return FormattedSave; // return list of custom categories saved in SaveFile
         }
 
@@ -70,11 +84,6 @@ namespace OrganizeFolder
 
 
 
-
-        public static void SaveCustomCategory(string[] Category)
-        {
-                File.AppendAllLines(SaveFile, Category);
-        }
 
         public static void SortCustomCategories()
         {

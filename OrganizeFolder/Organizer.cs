@@ -27,13 +27,19 @@ namespace OrganizeFolder
         private static string Other = Path.Combine(Main, "Unknown type");
 
         public List<string> Directories = new List<string>();
-        ExtensionsKit Ekit = new ExtensionsKit();
+        public ExtensionsKit Ekit = new ExtensionsKit();
         private static IEnumerable<string> Files = Directory.EnumerateFiles(Main);
 
         
 
         public Organizer()
         {
+            string[] test = new string[] { "TestingAddC", ".com", ".bat" };
+            Ekit.addCustomCategory(test);
+            SaveMaster.SaveCustomCategories(Ekit.CustomCategories);
+
+
+
             populateDirectories();
             populateAboutFileExtensionsMenu();
             populateCustomFileExtensionsMenu();
@@ -48,9 +54,18 @@ namespace OrganizeFolder
             HelpMenu.addMethod(HelpMenu.exitMenuLoop, "Return");
             HelpMenu.addMethod(TutorialMenu.runMenu, "Tutorial");
             HelpMenu.addMethod(AboutFileExtensionsMenu.runMenu, "File Exensions");
-            HelpMenu.addMethod(CustomFileExtensionsMenu.runMenu, "Custom Categories");
+            HelpMenu.addMethod(runCustomFileExtensionsMenu, "Custom Categories");
             HelpMenu.addMethod(AboutOrganizerMenu.runMenu, "About PSI. Organizer");
+
+            
         }
+        public bool runCustomFileExtensionsMenu()
+        {
+           
+            CustomFileExtensionsMenu.runMenu();
+            return true;
+        }
+
 
         public void populateDirectories()
         {
@@ -60,7 +75,6 @@ namespace OrganizeFolder
             }
             Directories.Add(Other);
         }
-
         public void populateAboutFileExtensionsMenu()
         {
             AboutFileExtensionsMenu.addMethod(AboutFileExtensionsMenu.exitMenuLoop, "Return");
@@ -84,6 +98,7 @@ namespace OrganizeFolder
         }
         public void populateCustomFileExtensionsMenu()
         {
+            
             CustomFileExtensionsMenu.addMethod(CustomFileExtensionsMenu.exitMenuLoop, "Return");
             foreach (string[] category in Ekit.CustomCategories)
             {
