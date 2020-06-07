@@ -9,17 +9,11 @@ namespace OrganizeFolder
     /// </summary>
     public static class SaveMaster
     {
-
-
         static string SaveFile = @"C:CustomCategories.txt";
         
-        
-        private static void CheckSaveFile()
+        private static void VerifySaveFile()
         {
-            if (!File.Exists(SaveFile))
-            {
-                File.Create(SaveFile);
-            }
+            if (!File.Exists(SaveFile)) File.Create(SaveFile);
         }
 
 
@@ -27,19 +21,12 @@ namespace OrganizeFolder
 
 
 
-        public static List<string[]> GetSavedCategories() // Doesn't return last category?
+        public static List<string[]> GetSavedCategories() 
         {
-            CheckSaveFile();
-
+            VerifySaveFile();
             List<string[]> FormattedSave = new List<string[]>(); // list of categories
-         
             string[] unformattedFile = File.ReadAllLines(SaveFile);  // Whole file as string[]
-
             List<string> categoryTemplate = new List<string>(); // Temp holder for category
-
-            string[] test = new string[] { "Category", ".xt", ".pvc" }; // test purposes
-            FormattedSave.Add(test);
-
             int lineCount = 0;
             bool isFirstCategory = true;
             foreach(string line in unformattedFile) // Check each line in txtfile
@@ -57,19 +44,10 @@ namespace OrganizeFolder
                     categoryTemplate.Clear();
                     categoryTemplate.Add(line);
                 }
-                
-
                 lineCount++;
-
-                
-
                 isFirstCategory = false;
             }
-            if (lineCount == unformattedFile.Length)
-            {
-                FormattedSave.Add(categoryTemplate.ToArray());
-            }
-
+            if (lineCount == unformattedFile.Length) FormattedSave.Add(categoryTemplate.ToArray());
             return FormattedSave; // return list of custom categories saved in SaveFile
         }
 
