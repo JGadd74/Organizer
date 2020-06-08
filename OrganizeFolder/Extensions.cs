@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
+using Save;
 
-namespace FileExtensions
+namespace OrganizeFolder
 {
     public class ExtensionsKit
     {
@@ -26,6 +24,24 @@ namespace FileExtensions
             video , 
             wordProcessor
         };
+
+        public List<string[]> CustomCategories = SaveMaster.GetSavedCategories();
+
+        public void addCustomCategory(string[] CustomCategory)
+        {
+            CustomCategories.Add(CustomCategory);
+        }
+        public string[] getCustomtCategoryNames()
+        {
+            List<string> nameList = new List<string>();
+
+            foreach (string[] category in CustomCategories)
+            {
+                nameList.Add(category[0]);
+            }
+            nameList.TrimExcess();
+            return nameList.ToArray();
+        }
 
         public string[] getCategoryNames()
         {

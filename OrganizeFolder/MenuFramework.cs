@@ -97,7 +97,7 @@ namespace MenuFramework
         }
 
         private string headerPrompt;
-        private string[] choiceLabel = new string[20]; // display label for choices 
+        private string[] choiceLabel = new string[200]; // display label for choices 
         private int currentScrollSelection = 0;
         private char selectedSymbol = ':';
         private char boundrySymbol = '|';
@@ -162,7 +162,7 @@ namespace MenuFramework
             char newline = '\n';
             Console.WriteLine(border + newline + spacer + headerPrompt + newline + border);
         }
-        private void displayMenu() // 
+        private void displayMenu() //  Perhaps rewrite all this? in a way that links the scales of the header and the body?
         {
             if (type != 3) GenerateNonScrollHeader();
             else GenerateScrollHeader();
@@ -209,7 +209,9 @@ namespace MenuFramework
                         else //basic format
                         {
                             currentLine += boundrySymbol + spaces + ' ' + choiceLabel[i] + adjustedSpaces + ' ' + boundrySymbol;
+                            
                         }
+                        WidthOfScrollOptions = currentLine.Length; //****************************************************************************
                         currentLine += '\n';
                         displayedMenu += currentLine;
                         currentLine = "";
@@ -219,6 +221,9 @@ namespace MenuFramework
                     break;
             }
         }
+
+        private int WidthOfScrollOptions = 0; // ************************************************************************************************
+
         private string getStringInput()
         {
             string input = Console.ReadLine();
