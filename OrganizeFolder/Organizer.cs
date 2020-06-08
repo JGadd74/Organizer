@@ -34,12 +34,6 @@ namespace OrganizeFolder
 
         public Organizer()
         {
-            string[] test = new string[] { "TestingAddC", ".com", ".bat" };
-            Ekit.addCustomCategory(test);
-            SaveMaster.SaveCustomCategories(Ekit.CustomCategories);
-
-
-
             populateDirectories();
             populateAboutFileExtensionsMenu();
             populateCustomFileExtensionsMenu();
@@ -54,19 +48,11 @@ namespace OrganizeFolder
             HelpMenu.addMethod(HelpMenu.exitMenuLoop, "Return");
             HelpMenu.addMethod(TutorialMenu.runMenu, "Tutorial");
             HelpMenu.addMethod(AboutFileExtensionsMenu.runMenu, "File Exensions");
-            HelpMenu.addMethod(runCustomFileExtensionsMenu, "Custom Categories");
+            HelpMenu.addMethod(CustomFileExtensionsMenu.runMenu, "Custom Categories");
             HelpMenu.addMethod(AboutOrganizerMenu.runMenu, "About PSI. Organizer");
 
             
         }
-        public bool runCustomFileExtensionsMenu()
-        {
-           
-            CustomFileExtensionsMenu.runMenu();
-            return true;
-        }
-
-
         public void populateDirectories()
         {
             foreach (string name in Ekit.getCategoryNames())
@@ -98,7 +84,6 @@ namespace OrganizeFolder
         }
         public void populateCustomFileExtensionsMenu()
         {
-            
             CustomFileExtensionsMenu.addMethod(CustomFileExtensionsMenu.exitMenuLoop, "Return");
             foreach (string[] category in Ekit.CustomCategories)
             {

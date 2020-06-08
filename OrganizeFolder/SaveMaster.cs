@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace OrganizeFolder
+namespace Save
 {
     /// <summary>
     /// This will Make the save file and add, remove, access and format file text
@@ -18,18 +18,11 @@ namespace OrganizeFolder
 
         public static void SaveCustomCategories(List<string[]> CustomCategories)
         {
-           
-           
             foreach(string[] category in CustomCategories)
             {
                 File.WriteAllLines(SaveFile, category);
             }
         }
-
-
-
-
-
 
         public static List<string[]> GetSavedCategories() 
         {
@@ -61,7 +54,6 @@ namespace OrganizeFolder
                 }
                 if (lineCount == unformattedFile.Length) FormattedSave.Add(categoryTemplate.ToArray());
             }
-            
             return FormattedSave; // return list of custom categories saved in SaveFile
         }
 
