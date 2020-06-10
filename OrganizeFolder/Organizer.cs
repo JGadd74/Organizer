@@ -14,20 +14,21 @@ namespace OrganizeFolder
     public class Organizer
     { 
         public Menu MainMenu = new Menu(MenuType.ScrollInput, "PSI. Folder Organizer");
-        public Menu SettingsMenu = new Menu(MenuType.ScrollInput, "Settings");
-        public Menu HelpMenu = new Menu(MenuType.ScrollInput, "Help");
-        public Menu TutorialMenu = new Menu(MenuType.TextBody, "Tutorial");
-        public Menu AboutFileExtensionsMenu = new Menu(MenuType.ScrollInput, "About File Extensions");
-        public Menu CustomFileExtensionsMenu = new Menu(MenuType.ScrollInput, "Custom Categories");
-        public Menu AboutOrganizerMenu = new Menu(MenuType.TextBody, "About PSI. Folder Organizer");
+        private Menu SettingsMenu = new Menu(MenuType.ScrollInput, "Settings");
+        private Menu EditCustomsMenu = new Menu(MenuType.ScrollInput, "Edit custom file categories");
+        private Menu HelpMenu = new Menu(MenuType.ScrollInput, "Help");
+        private Menu TutorialMenu = new Menu(MenuType.TextBody, "Tutorial");
+        private Menu AboutFileExtensionsMenu = new Menu(MenuType.ScrollInput, "About File Extensions");
+        private Menu CustomFileExtensionsMenu = new Menu(MenuType.ScrollInput, "Custom Categories");
+        private Menu AboutOrganizerMenu = new Menu(MenuType.TextBody, "About PSI. Folder Organizer");
 
         private static string activeUser = Environment.UserName;
 
         private static string Main = @"C:\Users\" + activeUser + @"\Downloads";
         private static string Other = Path.Combine(Main, "Unknown type");
 
-        public List<string> Directories = new List<string>();
-        public ExtensionsKit Ekit = new ExtensionsKit();
+        private List<string> Directories = new List<string>();
+        private ExtensionsKit Ekit = new ExtensionsKit();
         private static IEnumerable<string> Files = Directory.EnumerateFiles(Main);
 
         
@@ -38,21 +39,60 @@ namespace OrganizeFolder
             populateAboutFileExtensionsMenu();
             populateCustomFileExtensionsMenu();
 
+            SetupMainMenu();
+            SetupSettingsMenu();
+            SetupHelpMenu();
+            SetupEditMenu();
+
+        }
+        private void SetupMainMenu()
+        {
             MainMenu.addMethod(organizeByDefaults, "Organize Downloads");
             MainMenu.addMethod(SettingsMenu.runMenu, "Settings");
             MainMenu.addMethod(MainMenu.exitMenuLoop, "Exit");
-
+        }
+        private void SetupSettingsMenu()
+        {
             SettingsMenu.addMethod(SettingsMenu.exitMenuLoop, "Return");
             SettingsMenu.addMethod(HelpMenu.runMenu, "Help");
-
+            SettingsMenu.addMethod(EditCustomsMenu.runMenu, "Category Editor");
+        }
+        private void SetupHelpMenu()
+        {
             HelpMenu.addMethod(HelpMenu.exitMenuLoop, "Return");
             HelpMenu.addMethod(TutorialMenu.runMenu, "Tutorial");
             HelpMenu.addMethod(AboutFileExtensionsMenu.runMenu, "File Exensions");
             HelpMenu.addMethod(CustomFileExtensionsMenu.runMenu, "Custom Categories");
             HelpMenu.addMethod(AboutOrganizerMenu.runMenu, "About PSI. Organizer");
-
-            
         }
+        private void SetupEditMenu()
+        {
+            EditCustomsMenu.addMethod(CreateCategory, "Create new category");
+            //EditCustomsMenu.addMethod( "Create New File Category");
+            //EditCustomsMenu.addMethod( "Delete Custom Category");
+            //EditCustomsMenu.addMethod( "View Your Custom Categories");
+        }
+        private bool CreateCategory()
+        {
+            List<string> NewCategory = new List<string>(); // convert to string[] pass to eKit.addCustomCategory
+            Menu GetCatNameMenu = new Menu(MenuType.TextInput, "Enter name of your new file category.  Cannot begin with a symbol.");
+            Menu areYouSure = new Menu(MenuType.ScrollInput, "temp");
+            bool yes() { GetCatNameMenu.exitMenuLoop(); areYouSure.exitMenuLoop(); return true; };
+            bool no() { GetCatNameMenu.exitMenuLoop(); areYouSure.exitMenuLoop(); CreateCategory();return true; };
+                        
+            areYouSure.addMethod(yes, "Yes");
+            areYouSure.addMethod(no, "No");
+
+            GetCatNameMenu.runMenu(out string categoryName);
+
+            areYouSure.SetHeaderPrompt("Are You sure You want to name your category " + categoryName + "?");
+            areYouSure.runMenu();
+                      
+            NewCategory.Add(categoryName);
+
+            return true;
+        }
+        
         public void populateDirectories()
         {
             foreach (string name in Ekit.getCategoryNames())
@@ -103,7 +143,6 @@ namespace OrganizeFolder
                 CustomFileExtensionsMenu.addMethod(tMenu.runMenu, category[0]);
             }
         }
-
         public bool organizeByDefaults()
         {
             foreach (string[] category in Ekit.ExtensionCategories)
