@@ -31,7 +31,7 @@ namespace OrganizeFolder
         public void addCustomCategory(string[] CustomCategory)
         {
             CustomCategories.Add(CustomCategory);
-            SaveMaster.SaveCustomCategories(CustomCategories);
+            SaveMaster.SaveCustomCategories(CustomCategories); //...................HERE FOR TEST PUPROSES
         }
         public string[] getCustomtCategoryNames()
         {
