@@ -1,3 +1,4 @@
-TestingAddC
-.com
-.bat
+MyTestCustom
+.cda
+.ogg
+.aif

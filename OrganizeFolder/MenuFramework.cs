@@ -413,6 +413,74 @@ namespace MenuFramework
             }
             return true;
         }
+
+
+
+
+        private void getScrollInput(out int selectedOption)
+        {
+            selectedOption = 0;
+            bool hasRun = false;
+            while (!hasRun)
+            {// get input until 'enter' is detected
+                //then execute selected method
+                ConsoleKeyInfo userInput = Console.ReadKey();
+                switch (userInput.Key)
+                {
+                    case ConsoleKey.DownArrow:
+                        if (currentScrollSelection < userMethods.Count - 1)
+                        {
+                            currentScrollSelection++;
+                            Console.Clear();
+                            displayMenu();
+                        }
+                        break;
+
+                    case ConsoleKey.UpArrow:
+                        if (currentScrollSelection > 0)
+                        {
+                            currentScrollSelection--;
+                            Console.Clear();
+                            displayMenu();
+                        }
+                        break;
+
+                    case ConsoleKey.Enter:
+                        selectedOption = currentScrollSelection;
+                        choiceDelegate selection = userMethods[currentScrollSelection];
+                        hasRunList[currentScrollSelection] = selection();
+                        hasRun = true;
+                        break;
+                }
+            }
+        }
+        public bool runMenu(out int[] CSS ) //css == current scroll selection
+        {
+            
+            List<int> tList = new List<int>();
+            int outSelect;
+
+            hasRunList.TrimExcess();
+            KeepRunning = true;
+            while (KeepRunning)
+            {
+                Console.Clear();
+                displayMenu();
+                if (type == 3)
+                {
+                    getScrollInput(out outSelect);
+                    tList.Add(outSelect);
+                }
+                else if (type == 0)
+                {
+                }
+                else getIntInput();
+
+                ; // edit to remove 
+            }
+            CSS = tList.ToArray();
+            return true;
+        }
         public bool runMenu(out string userInput)
         {
             hasRunList.TrimExcess();
@@ -421,6 +489,7 @@ namespace MenuFramework
             userInput = getStringInput();
             return true;
         }
+       
     }
 }
 

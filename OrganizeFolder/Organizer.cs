@@ -67,6 +67,7 @@ namespace OrganizeFolder
         }
         private void SetupEditMenu()
         {
+            EditCustomsMenu.addMethod(EditCustomsMenu.exitMenuLoop, "Return");
             EditCustomsMenu.addMethod(CreateCategory, "Create new category");
             //EditCustomsMenu.addMethod( "Create New File Category");
             //EditCustomsMenu.addMethod( "Delete Custom Category");
@@ -74,7 +75,8 @@ namespace OrganizeFolder
         }
         private bool CreateCategory()
         {
-            List<string> NewCategory = new List<string>(); // convert to string[] pass to eKit.addCustomCategory
+
+           
             Menu GetCatNameMenu = new Menu(MenuType.TextInput, "Enter name of your new file category.  Cannot begin with a symbol.");
             Menu areYouSure = new Menu(MenuType.ScrollInput, "temp");
             bool yes() { GetCatNameMenu.exitMenuLoop(); areYouSure.exitMenuLoop(); return true; };
@@ -83,15 +85,44 @@ namespace OrganizeFolder
             areYouSure.addMethod(yes, "Yes");
             areYouSure.addMethod(no, "No");
 
-            GetCatNameMenu.runMenu(out string categoryName);
+            GetCatNameMenu.runMenu(out string newCategoryName);
 
-            areYouSure.SetHeaderPrompt("Are You sure You want to name your category " + categoryName + "?");
+            areYouSure.SetHeaderPrompt("Are You sure You want to name your category " + newCategoryName + "?");
             areYouSure.runMenu();
-                      
-            NewCategory.Add(categoryName);
 
+            ;
+            Ekit.addCustomCategory(AddExtensionsToCategory(newCategoryName));
             return true;
         }
+        private string[] AddExtensionsToCategory(string name)
+        {
+            List<string> CategoryBuilder = new List<string>();
+            CategoryBuilder.Add(name);
+            Menu selectExtensions = new Menu(MenuType.ScrollInput, "Select file extensions to associate with you new category.");
+            // add extensions as methods, added to custom category when run
+            string[] extensions = Ekit.GetExtensionsArray();
+
+            bool temp() { return true; }
+
+            selectExtensions.addMethod(selectExtensions.exitMenuLoop, "Complete Your Custom Category");
+
+            foreach(string extension in extensions)
+            {
+                selectExtensions.addMethod(temp, extension);
+            }
+            selectExtensions.runMenu(out int[] selectedExtensions); // array of options on which the user hit enter???
+
+            string[] exts = Ekit.GetExtensionsArray();
+            foreach(int Ext in selectedExtensions)
+            {
+                CategoryBuilder.Add(exts[Ext]);
+            }
+
+            return CategoryBuilder.ToArray();
+        }
+        /// <summary>
+        ///     need to get that categoryBuilder out somehow???
+        /// </summary>
         
         public void populateDirectories()
         {
@@ -104,11 +135,11 @@ namespace OrganizeFolder
         public void populateAboutFileExtensionsMenu()
         {
             AboutFileExtensionsMenu.addMethod(AboutFileExtensionsMenu.exitMenuLoop, "Return");
-            foreach(string[] category in Ekit.ExtensionCategories)
+            foreach(string[] category in Ekit.ExtensionCategories) // check each category
             {
                 string ExtensionsColumn = "";
                 bool isFirstTime = true;
-                foreach(string extension in category)
+                foreach(string extension in category) // add extensions to list while ignoring the category name at [0]
                 {
                     if (!isFirstTime)
                     {
@@ -117,9 +148,9 @@ namespace OrganizeFolder
                     }
                     isFirstTime = false;
                 }
-                Menu tMenu = new Menu(MenuType.TextBody, category[0]);
+                Menu tMenu = new Menu(MenuType.TextBody, category[0]); // create listing from category with category listed as header
                 tMenu.SetBodyText(ExtensionsColumn);
-                AboutFileExtensionsMenu.addMethod(tMenu.runMenu, category[0]);
+                AboutFileExtensionsMenu.addMethod(tMenu.runMenu, category[0]); // add category to menu with category name as option label
             }
         }
         public void populateCustomFileExtensionsMenu()

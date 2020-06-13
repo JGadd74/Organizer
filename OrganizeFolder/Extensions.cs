@@ -27,9 +27,11 @@ namespace OrganizeFolder
 
         public List<string[]> CustomCategories = SaveMaster.GetSavedCategories();
 
+
         public void addCustomCategory(string[] CustomCategory)
         {
             CustomCategories.Add(CustomCategory);
+            SaveMaster.SaveCustomCategories(CustomCategories);
         }
         public string[] getCustomtCategoryNames()
         {
@@ -41,6 +43,22 @@ namespace OrganizeFolder
             }
             nameList.TrimExcess();
             return nameList.ToArray();
+        }
+
+        public string[] GetExtensionsArray()
+        {
+            List<string> extensions = new List<string>();
+            foreach(string[] category in ExtensionCategories)
+            {
+                foreach(string entry in category)
+                {
+                    if(entry[0] == '.')
+                    {
+                        extensions.Add(entry);
+                    }
+                }
+            }
+            return extensions.ToArray();
         }
 
         public string[] getCategoryNames()
